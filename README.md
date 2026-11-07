@@ -85,6 +85,11 @@ Have a quote or correction? [Tell Nikhil on X](https://x.com/intent/post?text=%4
 The app is hosted on Vercel at **the-wall.nikhilkr.in**. Production deployments
 use the `main` branch and `npm run build`.
 
+`next.config.ts` sets basic response protections: frame blocking, MIME sniffing
+protection, a limited referrer policy, disabled unused browser permissions, and
+HTTPS enforcement. The CSP restricts framing, base URLs, objects, and form targets;
+it does not implement a script-source allowlist.
+
 ## Optional analytics
 
 Analytics uses PostHog. To configure your own instance, copy `.env.example` to
