@@ -1,77 +1,96 @@
 # The Wall
 
-A simple quote wall at [the-wall.nikhilkr.in](https://the-wall.nikhilkr.in).
+A personal collection of quotes I keep coming back to. Sometimes for a nudge,
+sometimes just because they're good.
 
-## Add a quote
+[Visit the wall](https://the-wall.nikhilkr.in) · [Subscribe via RSS](https://the-wall.nikhilkr.in/rss.xml)
 
-Edit [`quotes.json`](quotes.json). Every entry appears on the wall in file order.
-Copy an existing entry or add:
+![The Wall — things worth repeating](public/og.png)
 
-```json
-{
-  "id": "a-unique-id",
-  "text": "Your quote here.",
-  "author": "Who said it",
-  "source": "Where you found it",
-  "sourceUrl": "https://example.com/original-source",
-  "kind": "internet"
-}
-```
+Scroll through the moving strips, open a quote to read it, copy a line, or hit
+**Surprise me**. Pause the wall whenever you like; it also respects reduced motion.
 
-Use a unique `id`. `sourceUrl` is optional; `kind` can be `famous` or `internet`.
-Existing attribution and source-detail fields preserve the evidence behind older
-entries; you do not need to add those fields for a new quote. Preserve uncertainty
-when editing them.
+Built with **Next.js, React, TypeScript, Tailwind CSS, Base UI, and Motion**.
 
-The RSS feed reads the same file in reverse order. Append new entries to the end
-to put them first in the feed. Optional `addedAt` dates use `YYYY-MM-DD` and mean
-the date added to this collection.
+## Run locally
 
-Saving updates the local site. Commit and push when ready to publish through
-Vercel. After the first push, connect this GitHub repo to the existing **the-wall**
-Vercel project and use `main` as the production branch for automatic deployments.
-
-## Development
-
-Requires Node.js 22+ and npm.
+Use Node.js 22+ and npm.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open [localhost:4317](http://localhost:4317).
+Open [localhost:4317](http://localhost:4317). To check and build the app:
 
-- `src/app/page.tsx` — page composition and quote collection import.
-- `src/components/` — header, hero, logo, quote wall, marquee strips, quote dialog, footer, and UI primitives.
-- `src/lib/analytics.ts` — PostHog initialization and event tracking.
-- `src/lib/site.ts` — shared production URL, search/share title, description, and social image.
-- `src/types/quote.ts` — shared quote type.
-- `quotes.json` — the single quote collection.
-- `src/app/layout.tsx` and `globals.css` — Next.js page shell, fonts, metadata, and styles.
+```sh
+npm run lint
+npm run typecheck
+npm run build
+npm run start
+```
+
+## Add a quote
+
+Edit [`quotes.json`](quotes.json), the only content file. Entries appear on the
+wall in file order and in reverse order in the RSS feed. Append a new entry to
+put it first in the feed. No CMS, submission backend, or code changes are needed.
+
+Here is an existing entry in a compact form:
+
+```json
+{
+  "id": "shaan-puri-modern-economy",
+  "text": "The economy is just smart people paying beautiful people to promote stuff to insecure people.",
+  "author": "Shaan Puri",
+  "source": "Modern Wisdom #1163 · 00:00",
+  "sourceUrl": "https://www.youtube.com/watch?v=XnQ2Da7HcRk&t=0s",
+  "kind": "internet",
+  "addedAt": "2026-11-07",
+  "topics": [
+    "work",
+    "perspective",
+    "humor"
+  ]
+}
+```
+
+Use a unique `id`. `kind` can be `famous` or `internet`. `sourceUrl`, `addedAt`,
+and `topics` are optional; `addedAt` is the date you added the quote to the
+collection, not the date it was originally said. Existing entries have additional
+source and attribution details: preserve those when editing them.
+
+## Sources and attribution
+
+A quote's presence here does not certify its authorship. The optional
+`attribution` field records a name, a status (`verified`, `unverified`, or
+`disputed`), and notes about the evidence. `sourceDetails` records where a line
+was found and who was heard speaking; `originalSource` can record an earlier
+source. The speaker and the attributed author may be different people.
+
+Keep exact wording when a record is labelled verbatim. Preserve uncertainty and
+source evidence rather than filling gaps with guesses. The RSS feed includes
+these notes alongside each quote.
+
+Have a quote or correction? [Tell Nikhil on X](https://x.com/intent/post?text=%40nikhilkr_tw%20a%20quote%20for%20the-wall%3A%20), ideally with a source link or timestamp.
+
+## Project layout
+
+- `quotes.json` — quote collection.
+- `src/app/` — page composition, layout, metadata, crawler routes, and RSS.
+- `src/components/` — wall, strips, dialog, hero, and ticket-style footer.
+- `src/lib/` — shared site metadata and analytics helpers.
 - `public/` — static social image and icons.
 
-Use `npm run lint`, `npm run typecheck`, and `npm run build` to check changes.
-`npm run start` serves the production build on port 4317.
+The app is hosted on Vercel at **the-wall.nikhilkr.in**. Production deployments
+use the `main` branch and `npm run build`.
 
-## Search and sharing
+## Optional analytics
 
-- `/robots.txt` allows crawling and points to `/sitemap.xml`.
-- `/sitemap.xml` lists the canonical homepage. Quotes live on the wall rather than separate pages.
-- `/rss.xml` is an RSS 2.0 feed generated from `quotes.json`, with stable IDs, source evidence, and attribution notes. Feed readers discover it through the homepage's alternate link.
-- The homepage includes canonical, robots, Open Graph, Twitter Card, and `WebSite`/`CollectionPage` structured data.
-- `public/og.png` is the static 1200 × 630 share image; icons are static PNGs too.
-
-After publishing, submit `https://the-wall.nikhilkr.in/sitemap.xml` in Google Search
-Console and inspect the homepage URL. Domain verification, if requested, comes
-from your Search Console account; no placeholder verification token is included.
-
-## Analytics
-
-PostHog uses the existing **portfolio** project (171413, US Cloud).
-The two variables in `.env.example` are already configured on Vercel; use
-`.env.local` for local configuration. Analytics runs only in production on
-`the-wall.nikhilkr.in`. Filter by `site = the-wall` or the Wall hostname.
+Analytics uses PostHog. To configure your own instance, copy `.env.example` to
+`.env.local` and set its public project token and API host. Analytics is limited
+to production on `the-wall.nikhilkr.in`; local development and preview URLs do
+not send events. Keep local environment files out of Git.
 
 ## License
 
