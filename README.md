@@ -90,7 +90,10 @@ use the `main` branch and `npm run build`.
 Analytics uses PostHog. To configure your own instance, copy `.env.example` to
 `.env.local` and set its public project token and API host. Analytics is limited
 to production on `the-wall.nikhilkr.in`; local development and preview URLs do
-not send events. Keep local environment files out of Git.
+not send events. The SDK loads only after a visitor allows analytics. Visitors
+can withdraw that choice in the footer; Do Not Track and Global Privacy Control
+keep analytics off. Analytics storage is scoped to this site. See `/privacy` for
+details. Keep local environment files out of Git.
 
 ## License
 

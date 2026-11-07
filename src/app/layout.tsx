@@ -7,6 +7,7 @@ import {
 } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
+import { AnalyticsPreferences } from "@/components/analytics-preferences";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -85,7 +86,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${bricolage.variable} ${instrument.variable} ${caveat.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <AnalyticsPreferences />
+      </body>
     </html>
   );
 }

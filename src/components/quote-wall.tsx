@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
+import { useState, useSyncExternalStore, type ReactNode } from "react";
 import { AnimatePresence, MotionConfig, motion, useScroll, useSpring, useVelocity } from "motion/react";
 import { Pause, Play, Shuffle } from "lucide-react";
 import { Button } from "./ui/button";
 import { MarqueeStrip, type StripDirection, type StripVariant } from "./marquee-strip";
 import { QuoteDialog } from "./quote-dialog";
 import { SiteFooter } from "./site-footer";
-import { captureWallEvent, initializeAnalytics } from "@/lib/analytics";
+import { captureWallEvent } from "@/lib/analytics";
 import type { Quote } from "@/types/quote";
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const;
@@ -35,8 +35,6 @@ function stripVariant(index: number): StripVariant {
 }
 
 export function QuoteWall({ quotes, hero }: { quotes: Quote[]; hero?: ReactNode }) {
-  useEffect(initializeAnalytics, []);
-
   const [userPaused, setUserPaused] = useState<boolean | null>(null);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [direction, setDirection] = useState<1 | -1>(1);
