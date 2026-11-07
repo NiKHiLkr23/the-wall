@@ -72,3 +72,9 @@ PostHog uses the existing **portfolio** project (171413, US Cloud).
 The two variables in `.env.example` are already configured on Vercel; use
 `.env.local` for local configuration. Analytics runs only in production on
 `the-wall.nikhilkr.in`. Filter by `site = the-wall` or the Wall hostname.
+
+## License
+
+The application code is available under the [MIT License](LICENSE). Quotation
+text and the works it comes from belong to their respective rights holders and
+are excluded from that license. Third-party assets retain their own licenses.
